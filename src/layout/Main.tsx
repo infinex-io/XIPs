@@ -43,6 +43,7 @@ const Main: React.FC = ({ children }) => {
             _paq.push(['enableLinkTracking']);
             (function() {
               var u="https://analytics.infinex.io/";
+              var u="https://analytics.infinex.io/";
               _paq.push(['setTrackerUrl', u+'matomo.php']);
               _paq.push(['setSiteId', '5']);
               var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
@@ -54,6 +55,7 @@ const Main: React.FC = ({ children }) => {
       <header className="site-header" role="banner">
         <div className="wrapper">
           <a className="site-title" rel="author" href="/">
+            XIPs
             XIPs
           </a>
           <nav className="site-nav">
@@ -70,6 +72,9 @@ const Main: React.FC = ({ children }) => {
               <Link className="page-link" to="/all-xip" activeClassName="active">
                 All XIPs
               </Link>
+              <Link className="page-link" to="/all-ir" activeClassName="active">
+                All IRs
+              </Link>
             </div>
           </nav>
         </div>
@@ -82,11 +87,13 @@ const Main: React.FC = ({ children }) => {
       <footer className="site-footer h-card">
         <div className="wrapper">
           <h2 className="footer-heading">XIPs</h2>
+          <h2 className="footer-heading">XIPs</h2>
 
           <div className="footer-col-wrapper">
             <div className="footer-col footer-col-1">
               <ul className="contact-list">
                 <li className="p-name">
+                  XIPs
                   XIPs
                 </li>
                 <li className="p-name">
@@ -110,13 +117,15 @@ const Main: React.FC = ({ children }) => {
                   <a href="https://twitter.com/infinex_app">
                     <SvgX className="svg-icon" />
                     <span className="username">infinex_app</span>
-                  </a>
+                    </a>
                 </li>
               </ul>
             </div>
 
             <div className="footer-col footer-col-3">
               <p>
+                Infinex Improvement Proposals (XIPs) describe standards for
+                the Infinex platform, including core protocol specifications,
                 Infinex Improvement Proposals (XIPs) describe standards for
                 the Infinex platform, including core protocol specifications,
                 client APIs, and contract standards.
@@ -133,7 +142,20 @@ const Main: React.FC = ({ children }) => {
         defer
       />
     </main>
+)};
+
+
+const NavLink = ({ to, children, activeClassName, ...otherProps }) => {
+  const isActive = ({ isCurrent }) => {
+    return isCurrent ? { className: `active ${activeClassName}` } : {}
+  }
+
+  return (
+    <Link getProps={isActive} to={to} {...otherProps}>
+      {children}
+    </Link>
   )
 }
 
 export default Main
+

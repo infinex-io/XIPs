@@ -7,6 +7,7 @@ const kebabStatuses = statuses.map(kebabCase)
 const Frontmatter = `
   fragment Frontmatter on MarkdownRemarkFrontmatter {
     xip
+    ir
     title
     author
     network
@@ -42,14 +43,39 @@ const allXipsQuery = `
     }
   }
 `
+const allIrsQuery = `
+  ${Frontmatter}
+  query allIrs {
+    allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: { regex: "/irs/" }
+        frontmatter: { ir: { ne: null } }
+      }
+    ) {
+      group(field: frontmatter___status) {
+        fieldValue
+        nodes {
+          frontmatter {
+            ...Frontmatter
+          }
+          md: rawMarkdownBody
+          html
+        }
+      }
+    }
+  }
+`
 
 exports.onPostBuild = async ({ graphql }) => {
   const allXips = await graphql(allXipsQuery)
+  const allIrs = await graphql(allIrsQuery)
 
   const xipsPath = './public/api/xips'
+  const irsPath = './public/api/irs'
 
   ;[
     { path: xipsPath, result: allXips },
+    { path: irsPath, result: allIrs },
   ].forEach(({ path, result }) => {
     if (!fs.existsSync(path)) fs.mkdirSync(path, { recursive: true })
 
@@ -87,26 +113,6 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       theme: String
     }
   `,
-    // schema.buildObjectType({
-    //   name: 'Frontmatter',
-    //   fields: {
-    //     tags: {
-    //       type: 'String!',
-    //       resolve(source, args, context, info) {
-    //         const { tags } = source
-    //         console.log(source)
-    //         switch (source[info.fieldName]) {
-    //           case 'type':
-    //             return 'TBD'
-    //           case 'implementor':
-    //             return 'TBD'
-    //           default:
-    //             return tags
-    //         }
-    //       },
-    //     },
-    //   },
-    // }),
   ]
   createTypes(typeDefs)
 }
