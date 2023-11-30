@@ -11,15 +11,9 @@ const snapshotIdRegex = /^https?:\/\/(snapshot.org).*\/([A-z0-9]{7,})$/
 const commonValidationSchema = Yup.object().shape({
   file: Yup.string().required(),
   title: Yup.string().required(),
-  type: Yup.string().oneOf(['meta-governance', 'core-upgrade','parameter-change', "integration-upgrade"]).required(),
-  resolution: Yup.string().matches(snapshotIdRegex),// check that this is optional
-  type: Yup.string().oneOf(['meta-governance', 'core-upgrade','parameter-change', "integration-upgrade"]).required(),
   resolution: Yup.string().matches(snapshotIdRegex),// check that this is optional
   status: Yup.string().oneOf(statuses),
   author: Yup.string().required(),
-  network: Yup.string()
-    .oneOf(['Ethereum', 'Optimism', 'Ethereum & Optimism','Base','Ethereum, Optimism & Base'])
-    .required(),
   implementor: Yup.string().nullable(),
   created: Yup.date().required(),
   updated: Yup.date().required(),
@@ -32,11 +26,14 @@ const commonValidationSchema = Yup.object().shape({
 
 // Specific validation for Xip, can extend to other types
 const xipValidationSchema = commonValidationSchema
-// Specific validation for Xip, can extend to other types
-const xipValidationSchema = commonValidationSchema
   .concat(
     Yup.object().shape({
       xip: Yup.number().required(),
+      network: Yup.string()
+      .oneOf(['Ethereum', 'Optimism', 'Ethereum & Optimism','Base','Ethereum, Optimism & Base'])
+      .required(),
+      type: Yup.string().oneOf(['meta-governance', 'core-upgrade','parameter-change', "integration-upgrade"]).required(),
+
     }),
   )
   .noUnknown()
