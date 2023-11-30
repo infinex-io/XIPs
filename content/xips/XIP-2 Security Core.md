@@ -3,7 +3,7 @@ xip: 2
 title: Security Core
 author: 'Bilby (@bilb-y), Spinxho (@spinxho), Tannutuva2 (@tannutuva2)'
 network: Ethereum & Optimism
-status: Draft
+status: Approved
 type: core-upgrade
 implementor: TBD
 release: TBD
@@ -18,7 +18,7 @@ This XIP proposes the framework for the security module that will secure user fu
 
 To reach mainstream users, Infinex needs a security system that allows users to secure their accounts using their preferred online identity and multi-factor authentication configuration. This system must be robust against breaches or loss of the users constituent security artefacts.
 
-Centralized exchanges all employ a tried and tested security model that achieves these goals by allowing the user to configure their security preferences with off-chain authentication, and a security model that minimises the risk of account loss and unauthorised draining of funds. The challenge of the Infinex security core is to emulate this user experience while preserving self-custody. To achieve this, this XIP proposes Infinex generates a smart contract for each user that is controlled by a key stored in the users browser (browser key), recoverable by a second key that is trustlessly gated by offchain multi-factor authentication (MFA).
+Centralized exchanges all employ a tried and tested security model that achieves these goals by allowing the user to configure their security preferences with off-chain authentication, and a security model that minimises the risk of account loss and unauthorised draining of funds. The challenge of the Infinex security core is to emulate this user experience while preserving self-custody. To achieve this, this XIP proposes Infinex generates a smart contract for each user that is controlled by a key stored in the users browser (browser key), recoverable by a second key that is trustlessly gated by offchain multi-factor authentication (MFA), while ensuring the controller of the second key doesn't have custody over the users smart account.
 
 # Motivation
 
@@ -61,7 +61,7 @@ The disadvantages of this approach are obvious: Bob’s savings are held by an o
 
 ### The challenge, therefore
 
-The Infinex security module endeaovurs to emulate the structural architecture of the CeFi solution in a trustless and decentralized fashion. This is seen as ideal, and can be achieved by deconstruction the constitutent actors and functions in CeFi security architecture. For the Infinex security module to be deemed successful, Bob would maintain sole ownership over his funds while maintaing the composability with the rest of Ethereum.
+The Infinex security module will emulate the structural interface of the CeFi solution in a trustless and decentralized fashion. This can be achieved by deconstruction of the constitutent actors and functions in CeFi security architecture. For the Infinex security module to be deemed successful, Bob would maintain sole ownership over his funds while maintainng the composability with the rest of Ethereum.
 
 Here’s what this ideal system would look like:
 
@@ -78,7 +78,7 @@ A simple withdrawal flow would therefore work like this:
 
 ![BobWithdrawal](assets/xip2-5.png)
 
-An important piece of this map is in decoupling the authenticator from the key management system (KMS), while preventing the KMS operators from accessing Bob’s key (unless they are Bob). This sounds like magic, but has become possible in recent months.
+An important piece of this map is in decoupling the authenticator from the key management system (KMS), while preventing the KMS operators from accessing Bob’s key (unless they are Bob). This sounds like magic, but has become possible in recent months with the Lit protocol's use of AMD SEV-SNP compute to build the first known trustless, generalised KMS.
 
 The aspect of **marginal responsibility** beyond Bob’s off-chain authentication is the blue key that he holds on his device. To avoid making this a single point of failure, this key needs to be recoverable, and thus the scope of it’s authorization on Bob’s account must be limited. It should be easily duplicatable, so that Bob can switch devices. It also has to be resistant to cross-site scripting attacks. The UX of using this key should be seemless, such that Bob doesn’t need to know there is a key on his device.
 
@@ -142,9 +142,9 @@ This customizability offers a gradient of control for advanced users who want mo
 
 ## Each key is gated by trustless off-chain security
 
-### Browser key encryption
+### Browser key storage
 
-The browser key will be encrypted on the users device by an encryption key gated behind the Infinex backend. The key is also included in the browser via cross-domain iframe architecture, protecting the user from cross site scripting attacks.
+The browser key will be accessible from the frontend via a cross-domain iframe architecture. This forms a “service within a service” separation, preventing frontend code from accessing the keys directly, while still allowing it to request signatures from the service. Furthermore, browser keys are encrypted with the user’s smart account contract address, so that a scanner looking for private keys on a compromised hard drive would be unable to find them. Keys persist unless the user clears their browser application storage for the key storage domain.
 
 For more information on browser key storage, see the [auxiliary file](assets/Browser_Key_Storage_Auxiliary_File.pdf).
 
@@ -177,7 +177,7 @@ More sequence diagrams can be found in the [auxiliary file](assets/Stytch_and_Li
 
 ### Upgrading a Lit action
 
-The Lit node operators run encrypted virtual machines to house **programmable key pairs** (PKPs) and execute Lit action code, meaning the node operators cannot modify the logic of the Lit action without acquiring a signature via the Lit action itself.
+The Lit node operators run encrypted virtual machines ([AMD SEV-SNP](https://www.amd.com/content/dam/amd/en/documents/epyc-business-docs/white-papers/SEV-SNP-strengthening-vm-isolation-with-integrity-protection-and-more.pdf)) to house **programmable key pairs** (PKPs) and execute Lit action code, meaning the node operators cannot modify the logic of the Lit action without acquiring a signature via the Lit action itself.
 
 Infinex governance can upgrade Lit actions by deploying new code to IPFS, and having the user request that the Lit action points to the new IPFS ID (the `litActionIPFSID`). This means that Infinex Governance can’t upgrade the Lit action logic without the users consent.
 
@@ -394,11 +394,11 @@ If user credentials are lost, users will have the ability to reset their credent
 
 *Compromised hard drive*
 
-Since all browser keys are encrypted via the users JWT ID, decryption of the key will require authentication of the user. The dual safeguard of encryption and login authentication ensures that keys remain secure and that user data is protected, even in the event of a compromised hard drive.
+Since all browser keys are encrypted via the users smart account contract address, decryption of the key will require knowledge of the users trading account. This provides an extra layer of difficulty for an attacker over storing the keys in plain text.
 
 *Cross-site scripting (XSS)*
 
-XSS is another risk associated with the browser key. To mitigate this threat, a cross-domain iframe architecture to create a “service within a service” separation would be adopted. This will prevent frontend code of the site that is affected from directly accessing private keys, thereby mitigating XSS risks. Furthermore, private keys will be encrypted using the user's email address and password, adding another of security by making it difficult for attackers to access keys without the user’s email address.
+XSS is another risk associated with the browser key. To mitigate this threat, a cross-domain iframe architecture to create a “service within a service” separation would be adopted. This will prevent frontend code of the site that is affected from directly accessing private keys, thereby mitigating XSS risks. Furthermore, private keys will be encrypted using the user's smart account contract address, meaning an attacker would also have to know the users onchain behaviour to do anything with the key.
 
 *Hacked recovery key*
 

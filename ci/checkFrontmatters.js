@@ -13,6 +13,8 @@ const commonValidationSchema = Yup.object().shape({
   title: Yup.string().required(),
   type: Yup.string().oneOf(['meta-governance', 'core-upgrade','parameter-change', "integration-upgrade"]).required(),
   resolution: Yup.string().matches(snapshotIdRegex),// check that this is optional
+  type: Yup.string().oneOf(['meta-governance', 'core-upgrade','parameter-change', "integration-upgrade"]).required(),
+  resolution: Yup.string().matches(snapshotIdRegex),// check that this is optional
   status: Yup.string().oneOf(statuses),
   author: Yup.string().required(),
   network: Yup.string()
@@ -28,6 +30,8 @@ const commonValidationSchema = Yup.object().shape({
   theme: Yup.string().nullable(),
 })
 
+// Specific validation for Xip, can extend to other types
+const xipValidationSchema = commonValidationSchema
 // Specific validation for Xip, can extend to other types
 const xipValidationSchema = commonValidationSchema
   .concat(

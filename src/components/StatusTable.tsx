@@ -9,9 +9,11 @@ interface Props {
 
 const StatusTable: React.FC<Props> = ({ rows }) => {
   return (
+
     <table className="xiptable">
       <thead>
         <tr>
+
           <th className="xipnum">Number</th>
           <th className="title w-2/3">Title</th>
           <th className="author w-1/3">Author</th>
@@ -43,4 +45,4 @@ const StatusTable: React.FC<Props> = ({ rows }) => {
   )
 }
 
-export { StatusTable }
+export { StatusTable };
