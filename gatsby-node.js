@@ -6,8 +6,8 @@ const kebabStatuses = statuses.map(kebabCase)
 
 const Frontmatter = `
   fragment Frontmatter on MarkdownRemarkFrontmatter {
-    sip
-    sccp
+    xip
+    ir
     title
     author
     network
@@ -18,15 +18,16 @@ const Frontmatter = `
     created
     updated
     status
+    theme
   }
 `
-const allSipsQuery = `
+const allXipsQuery = `
   ${Frontmatter}
-  query allSips {
+  query allXips {
     allMarkdownRemark(
       filter: {
-        fileAbsolutePath: { regex: "/sips/" }
-        frontmatter: { sip: { ne: null } }
+        fileAbsolutePath: { regex: "/xips/" }
+        frontmatter: { xip: { ne: null } }
       }
     ) {
       group(field: frontmatter___status) {
@@ -42,14 +43,13 @@ const allSipsQuery = `
     }
   }
 `
-
-const allSccpQuery = `
+const allIrsQuery = `
   ${Frontmatter}
-  query allSips {
+  query allIrs {
     allMarkdownRemark(
       filter: {
-        fileAbsolutePath: { regex: "/sccp/" }
-        frontmatter: { sccp: { ne: null } }
+        fileAbsolutePath: { regex: "/irs/" }
+        frontmatter: { ir: { ne: null } }
       }
     ) {
       group(field: frontmatter___status) {
@@ -67,15 +67,15 @@ const allSccpQuery = `
 `
 
 exports.onPostBuild = async ({ graphql }) => {
-  const allSips = await graphql(allSipsQuery)
-  const allSccp = await graphql(allSccpQuery)
+  const allXips = await graphql(allXipsQuery)
+  const allIrs = await graphql(allIrsQuery)
 
-  const sipsPath = './public/api/sips'
-  const sccpPath = './public/api/sccp'
+  const xipsPath = './public/api/xips'
+  const irsPath = './public/api/irs'
 
   ;[
-    { path: sipsPath, result: allSips },
-    { path: sccpPath, result: allSccp },
+    { path: xipsPath, result: allXips },
+    { path: irsPath, result: allIrs },
   ].forEach(({ path, result }) => {
     if (!fs.existsSync(path)) fs.mkdirSync(path, { recursive: true })
 
@@ -100,38 +100,19 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   const typeDefs = [
     `
     type MarkdownRemarkFrontmatter implements Node {
-      title: String!
+      title: String
       type: String
       network: String
-      status: String!
-      author: String!
+      status: String
+      author: String
       implementor: String
       proposal: String
       release: String
       created: Date
       updated: Date
+      theme: String
     }
   `,
-    // schema.buildObjectType({
-    //   name: 'Frontmatter',
-    //   fields: {
-    //     tags: {
-    //       type: 'String!',
-    //       resolve(source, args, context, info) {
-    //         const { tags } = source
-    //         console.log(source)
-    //         switch (source[info.fieldName]) {
-    //           case 'type':
-    //             return 'TBD'
-    //           case 'implementor':
-    //             return 'TBD'
-    //           default:
-    //             return tags
-    //         }
-    //       },
-    //     },
-    //   },
-    // }),
   ]
   createTypes(typeDefs)
 }

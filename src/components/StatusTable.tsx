@@ -9,10 +9,10 @@ interface Props {
 
 const StatusTable: React.FC<Props> = ({ rows }) => {
   return (
-    <table className="siptable">
+    <table className="xiptable">
       <thead>
         <tr>
-          <th className="sipnum">Number</th>
+          <th className="xipnum">Number</th>
           <th className="title w-2/3">Title</th>
           <th className="author w-1/3">Author</th>
         </tr>
@@ -21,18 +21,14 @@ const StatusTable: React.FC<Props> = ({ rows }) => {
       <tbody>
         {rows.map((row) => (
           <tr key={row.id}>
-            <td className="sipnum">
-              {row.frontmatter.sip ? (
-                <a href={`/sips/sip-${row.frontmatter.sip}`}>
-                  {row.frontmatter.sip}
-                </a>
-              ) : row.frontmatter.stp ? (
-                <a href={`/stps/stp-${row.frontmatter.stp}`}>
-                  {row.frontmatter.stp}
+            <td className="xipnum">
+            {row.frontmatter.xip ? (
+                <a href={`/xips/xip-${row.frontmatter.xip}`}>
+                  {row.frontmatter.xip}
                 </a>
               ) : (
-                <a href={`/sccp/sccp-${row.frontmatter.sccp}`}>
-                  {row.frontmatter.sccp}
+                <a href={`/irs/ir-${row.frontmatter.ir}`}>
+                  {row.frontmatter.ir}
                 </a>
               )}
             </td>

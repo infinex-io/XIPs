@@ -76,8 +76,8 @@ const FrontmatterTable: React.FC<Props> = ({ frontmatter }) => {
 
 export const query = graphql`
   fragment Frontmatter on MarkdownRemarkFrontmatter {
-    sip
-    sccp
+    xip
+    ir
     title
     network
     author
@@ -88,6 +88,7 @@ export const query = graphql`
     created
     updated
     status
+    theme
   }
 `
 
