@@ -11,13 +11,9 @@ const snapshotIdRegex = /^https?:\/\/(snapshot.org).*\/([A-z0-9]{7,})$/
 const commonValidationSchema = Yup.object().shape({
   file: Yup.string().required(),
   title: Yup.string().required(),
-  type: Yup.string().oneOf(['meta-governance', 'core-upgrade','parameter-change', "integration-upgrade"]).required(),
   resolution: Yup.string().matches(snapshotIdRegex),// check that this is optional
   status: Yup.string().oneOf(statuses),
   author: Yup.string().required(),
-  network: Yup.string()
-    .oneOf(['Ethereum', 'Optimism', 'Ethereum & Optimism','Base','Ethereum, Optimism & Base'])
-    .required(),
   implementor: Yup.string().nullable(),
   created: Yup.date().required(),
   updated: Yup.date().required(),
@@ -33,6 +29,21 @@ const xipValidationSchema = commonValidationSchema
   .concat(
     Yup.object().shape({
       xip: Yup.number().required(),
+      network: Yup.string()
+      .oneOf(['Ethereum', 'Optimism', 'Ethereum & Optimism','Base','Ethereum, Optimism & Base'])
+      .required(),
+      type: Yup.string().oneOf(['meta-governance', 'core-upgrade','parameter-change', "integration-upgrade"]).required(),
+
+    }),
+  )
+  .noUnknown()
+  .strict()
+
+// Specific validation for Xip, can extend to other types
+const irValidationSchema = commonValidationSchema
+  .concat(
+    Yup.object().shape({
+      ir: Yup.number().required(),
     }),
   )
   .noUnknown()
@@ -42,6 +53,7 @@ const xipValidationSchema = commonValidationSchema
 ;(async () => {
   try {
     const xips = await g('./content/xips/*.md')
+    const irs = await g('./content/irs/*.md')
 
     // XIP
     await Promise.all(
@@ -50,6 +62,16 @@ const xipValidationSchema = commonValidationSchema
         const { attributes } = fm(content)
         const castValues = xipValidationSchema.cast({ file, ...attributes })
         return await xipValidationSchema.validate(castValues)
+      }),
+    )
+
+    // IR
+    await Promise.all(
+      irs.map(async (file) => {
+        const content = await fs.readFile(file, 'utf-8')
+        const { attributes } = fm(content)
+        const castValues = irValidationSchema.cast({ file, ...attributes })
+        return await irValidationSchema.validate(castValues)
       }),
     )
   

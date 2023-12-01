@@ -20,9 +20,11 @@ figure {
 
 body {
   
+  
   font: 400 16px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol';
+  font-family: ;
   font-family: ;
   color: #111;
   background-color: #fdfdfd;
@@ -299,9 +301,10 @@ table td {
 .site-nav .page-link:not(:last-child) {
   margin-right: 20px;
 }
-.active {
+.site-nav .page-link.active {
   color: #ff9b69;
 }
+
 @media screen and (max-width: 600px) {
   .site-nav {
     position: absolute;
