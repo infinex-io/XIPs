@@ -56,7 +56,6 @@ const Main: React.FC = ({ children }) => {
         <div className="wrapper">
           <a className="site-title" rel="author" href="/">
             XIPs
-            XIPs
           </a>
           <nav className="site-nav">
             <input type="checkbox" id="nav-trigger" className="nav-trigger" />
@@ -87,13 +86,11 @@ const Main: React.FC = ({ children }) => {
       <footer className="site-footer h-card">
         <div className="wrapper">
           <h2 className="footer-heading">XIPs</h2>
-          <h2 className="footer-heading">XIPs</h2>
 
           <div className="footer-col-wrapper">
             <div className="footer-col footer-col-1">
               <ul className="contact-list">
                 <li className="p-name">
-                  XIPs
                   XIPs
                 </li>
                 <li className="p-name">
@@ -124,8 +121,6 @@ const Main: React.FC = ({ children }) => {
 
             <div className="footer-col footer-col-3">
               <p>
-                Infinex Improvement Proposals (XIPs) describe standards for
-                the Infinex platform, including core protocol specifications,
                 Infinex Improvement Proposals (XIPs) describe standards for
                 the Infinex platform, including core protocol specifications,
                 client APIs, and contract standards.
