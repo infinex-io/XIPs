@@ -33,7 +33,7 @@ const Template: React.FC<Props> = ({ data }) => {
       <Helmet title={`IR-${frontmatter.ir}: ${frontmatter.title}`} />
       <h1 className="page-heading">
         <a href={githubLink} className="inline-block">
-          XIP-{frontmatter.ir}: {frontmatter.title} <SourceIcon />
+          IR-{frontmatter.ir}: {frontmatter.title} <SourceIcon />
         </a>
       </h1>
       <FrontmatterTable frontmatter={frontmatter} />
