@@ -2,7 +2,7 @@
 title: IR Purpose and Guidelines
 ir: 1
 author: Kain (@kaiynne), kmao (@kmao37), Spinxho (@spinxho)
-status: Vote Pending
+status: Vote_Pending
 created: 2023-11-30
 updated: 2023-12-06
 ---
