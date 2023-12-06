@@ -8,6 +8,7 @@ const Frontmatter = `
   fragment Frontmatter on MarkdownRemarkFrontmatter {
     xip
     ir
+    wgc
     title
     author
     network
@@ -19,6 +20,12 @@ const Frontmatter = `
     updated
     status
     theme
+    wg_name
+    wg_lead
+    budget
+    budget_cadence
+    timeline
+    established
   }
 `
 const allXipsQuery = `
@@ -66,16 +73,42 @@ const allIrsQuery = `
   }
 `
 
+const allWGCsQuery = `
+  ${Frontmatter}
+  query allWGCs {
+    allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: { regex: "/wgcs/" }
+        frontmatter: { wgc: { ne: null } }
+      }
+    ) {
+      group(field: frontmatter___status) {
+        fieldValue
+        nodes {
+          frontmatter {
+            ...Frontmatter
+          }
+          md: rawMarkdownBody
+          html
+        }
+      }
+    }
+  }
+`
+
 exports.onPostBuild = async ({ graphql }) => {
   const allXips = await graphql(allXipsQuery)
   const allIrs = await graphql(allIrsQuery)
+  const allWGCs = await graphql(allWGCsQuery)
 
   const xipsPath = './public/api/xips'
   const irsPath = './public/api/irs'
+  const wgcsPath = './public/api/wgcs'
 
   ;[
     { path: xipsPath, result: allXips },
     { path: irsPath, result: allIrs },
+    { path: wgcsPath, result: allWGCs },
   ].forEach(({ path, result }) => {
     if (!fs.existsSync(path)) fs.mkdirSync(path, { recursive: true })
 
