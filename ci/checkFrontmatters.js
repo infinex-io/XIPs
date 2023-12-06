@@ -49,11 +49,28 @@ const irValidationSchema = commonValidationSchema
   .noUnknown()
   .strict()
 
+  // Specific validation for Xip, can extend to other types
+const wgcValidationSchema = commonValidationSchema
+.concat(
+  Yup.object().shape({
+    wgc: Yup.number().required(),
+    wg_name: Yup.string().required(),
+    wg_lead: Yup.string().required(),
+    budget: Yup.string().required(),
+    budget_cadence: Yup.string().required(),
+    timeline: Yup.string().required(),
+    established: Yup.string().required(),
+  }),
+)
+.noUnknown()
+.strict()
+
 
 ;(async () => {
   try {
     const xips = await g('./content/xips/*.md')
     const irs = await g('./content/irs/*.md')
+    const wgc = await g('./content/wgcs/*.md')
 
     // XIP
     await Promise.all(
@@ -74,6 +91,16 @@ const irValidationSchema = commonValidationSchema
         return await irValidationSchema.validate(castValues)
       }),
     )
+
+      // WGC
+      await Promise.all(
+        wgc.map(async (file) => {
+          const content = await fs.readFile(file, 'utf-8')
+          const { attributes } = fm(content)
+          const castValues = wgcValidationSchema.cast({ file, ...attributes })
+          return await wgcValidationSchema.validate(castValues)
+        }),
+      )
   
   } catch (error) {
     console.log(error)

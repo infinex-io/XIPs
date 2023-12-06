@@ -55,7 +55,7 @@ const Main: React.FC = ({ children }) => {
       <header className="site-header" role="banner">
         <div className="wrapper">
           <a className="site-title" rel="author" href="/">
-            XIPs
+            XIPs 
           </a>
           <nav className="site-nav">
             <input type="checkbox" id="nav-trigger" className="nav-trigger" />
@@ -73,6 +73,9 @@ const Main: React.FC = ({ children }) => {
               </Link>
               <Link className="page-link" to="/all-ir" activeClassName="active">
                 All IRs
+              </Link>
+              <Link className="page-link" to="/all-wgc" activeClassName="active">
+                All WGCs
               </Link>
             </div>
           </nav>
