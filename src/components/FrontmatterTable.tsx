@@ -69,6 +69,14 @@ const FrontmatterTable: React.FC<Props> = ({ frontmatter }) => {
             <td>{format(new Date(frontmatter.updated), 'yyyy-MM-dd')}</td>
           </tr>
         )}
+        
+         {frontmatter.dependencies && (
+          <tr>
+            <th>Dependencies</th>
+            <td>{frontmatter.dependencies}</td>
+          </tr>
+        )}
+
       </tbody>
     </table>
   )
@@ -89,7 +97,7 @@ export const query = graphql`
     updated
     status
     theme
-    theme
+    dependencies
   }
 `
 

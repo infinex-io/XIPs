@@ -19,6 +19,7 @@ const Frontmatter = `
     updated
     status
     theme
+    dependencies
   }
 `
 const allXipsQuery = `
@@ -111,6 +112,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       created: Date
       updated: Date
       theme: String
+      dependencies: String
     }
   `,
   ]

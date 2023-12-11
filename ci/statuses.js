@@ -7,4 +7,5 @@ module.exports = [
   'Implemented',
   'Rejected',
   'Deprecated',
+  'Proposed',
 ]
