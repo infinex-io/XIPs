@@ -13,6 +13,7 @@ const commonValidationSchema = Yup.object().shape({
   title: Yup.string().required(),
   resolution: Yup.string().matches(snapshotIdRegex),// check that this is optional
   status: Yup.string().oneOf(statuses),
+  dependencies: Yup.string().nullable(),
   author: Yup.string().required(),
   implementor: Yup.string().nullable(),
   created: Yup.date().required(),
