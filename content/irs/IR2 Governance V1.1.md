@@ -38,11 +38,11 @@ IR-2 proposes to deploy temporary Infinex Governance to Base that utilises a Gno
 
 The Infinex council will utilise a single Gnosis Safe on Base as the deployer safe for the protocol. This safe will be deployed with the existing council members as the 4 signers, and once the Treasury Seat has been elected, an additional signer will be added.
 
-Because this safe does not support elections the governance framework on Base is a temporary solution to allow for the Infinex Closed Alpha to launch. New versions of the V3GM election module will be proposed for deployment to Base via an IR if IR-2 passes. This temporary governance framework is only mandated until the end of Epoch 1, after which either a new election must be held or governance control of all Infinex contracts will be returned to the V3GM instance on Optimism.
+Because this safe does not support elections, the governance framework on Base is a temporary solution to allow for the Infinex Closed Alpha to launch. New versions of the V3GM election module will be proposed for deployment to Base via an IR if IR-2 passes. This temporary governance framework is only mandated until the end of Epoch 1, after which either a new election must be held or governance control of all Infinex contracts will be returned to the V3GM instance on Optimism.
 
 ### Election of a Treasury seat
 
-The Infinex Council elections for Epoch 1 failed to elect a Treasury Seat. The absence of a Treasury Seat has prevented Infinex from raising capital and incentivising working groups, as well as blocking other aspects of Infinex Governance that are managed by the Treadury Seat.
+The Infinex Council elections for Epoch 1 failed to elect a Treasury Seat. The absence of a Treasury Seat has prevented Infinex from raising capital and incentivising working groups, as well as blocking other aspects of Infinex Governance that are managed by the Treasury Seat.
 
 IR-2 proposes a Direct Election of the Treasury Seat by the Infinex Council. If this IR passes, the Infinex councillors will select a Treasury Seat from the candidate pool of the initial election. This vote will be held over five days via snapshot vote, with the Infinex Council then ratifying this election onchain via modification to the Base Governance Safe. The winning candidate must have a majority of votes to be elected, in the event of no majority decision, the process will repeat until there is a winner of the election.
 
