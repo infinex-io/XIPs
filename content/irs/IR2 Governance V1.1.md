@@ -46,7 +46,7 @@ The Infinex Council elections for Epoch 1 failed to elect a Treasury Seat. The a
 
 IR-2 proposes a Direct Election of the Treasury Seat by the Infinex Council. If this IR passes, the Infinex councillors will select a Treasury Seat from the candidate pool of the initial election. This vote will be held over five days via snapshot vote, with the Infinex Council then ratifying this election onchain via modification to the Base Governance Safe. The winning candidate must have a majority of votes to be elected, in the event of no majority decision, the process will repeat until there is a winner of the election.
 
-Upon the election of the Treasury Seat the Infinex Council will be responsible for establishing a new election process for the Treasury Seat prior to the conclusion of the current epoch. This election mechanism requires modification to the Election Contracts so it must be passed via a future IR.
+Upon the election of the Treasury Seat, the Infinex Council will be responsible for establishing a new election process for the Treasury Seat prior to the conclusion of the current epoch. This election mechanism requires modification to the Election Contracts so it must be passed via a future IR.
 
 # Copyright
 
