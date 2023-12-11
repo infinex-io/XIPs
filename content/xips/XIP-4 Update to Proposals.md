@@ -24,7 +24,7 @@ Infinex Governance requires the flexibility to add new governance processes via 
 
 ## Rationale
 
-Infinex's initially forked the XIPs from [Synthetix's SIP template](https://sips.synthetix.io/sips/sip-1/). However, after further developments, various issues have arisen. These are:
+Infinex initially forked the XIPs from [Synthetix's SIP template](https://sips.synthetix.io/sips/sip-1/). However, after further developments, various issues have arisen. These are:
 
 1. The need to fomalise the process to establish new Infinex Proposal types. The existing XIP template lacks clarity on how to establish a new Infinex Proposal template.
 1. The XIP template, forces authors to repeat content in several places.
@@ -34,7 +34,7 @@ Infinex's initially forked the XIPs from [Synthetix's SIP template](https://sips
 
 #### Establishing new document types
 
-The process for establishing the concept of an Infinex Referendum demonstrated there was a lack of clarity for how to establish a new Infinex Proposal types. This XIP specifies that it is possible to establish a new Infinex Proposal type without requiring an XIP, as long as:
+The process for establishing the concept of an Infinex Referendum demonstrated there was a lack of clarity for how to establish new Infinex Proposal types. This XIP specifies that it is possible to establish a new Infinex Proposal type without requiring an XIP, as long as:
 
 - It does not involve meta-governance, or governance
   - *Anything that bypasses the logic in the election modules and other goverance contracts are considered as meta-governance changes.*
@@ -57,8 +57,6 @@ This technical debt makes accommodating changes to the XIP template take longer 
 As an editing format, Markdown is fine but can make authoring cumbersome, especially formatting sensitive layouts like tables, which decreases the productivity of XIP editors and contributors.
 
 Additionally, the outdated design is not in sync with the brand or vision for Infinex, and represents the project poorly in the community. The site is not easy to navigate, or search, and the client-side bundle is larger than necessary.
-
-If this XIP is passed, the XIPs website will be renamed to the Infinex Proposals website and will be redesigned and re-built with a clean and modern web stack including:
 
 - [Next.js 14](https://github.com/bakaoh/sip_automerger) with server-side components
 - [Tailwind CSS](https://tailwindcss.com/)
