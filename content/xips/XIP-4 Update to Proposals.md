@@ -37,7 +37,7 @@ Infinex initially forked the XIPs from [Synthetix's SIP template](https://sips.s
 The process for establishing the concept of an Infinex Referendum demonstrated there was a lack of clarity for how to establish new Infinex Proposal types. This XIP specifies that it is possible to establish a new Infinex Proposal type without requiring an XIP, as long as:
 
 - It does not involve meta-governance, or governance
-  - *Anything that bypasses the logic in the election modules and other goverance contracts are considered as meta-governance changes.*
+  - *Anything that bypasses the logic in the election modules and other governance contracts are considered as meta-governance changes.*
 - The establishment of the new Infinex Proposal follows the existing XIP voting rules.
 
 #### Granting the XIP Editor Additional Permissions
