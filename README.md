@@ -1,3 +1,11 @@
+# Deprecation Notice
+
+### XIPs have been moved to our new [proposals](https://github.com/infinex-io/proposals) repository
+
+This repository is now archived and will be removed in the future. Please contribute to the new proposals repository instead.
+
+---
+
 # XIPs
 
 Infinex Improvement Proposals (XIPs) describe standards for the Synthetix platform, including core protocol specifications, client APIs, and contract standards.
